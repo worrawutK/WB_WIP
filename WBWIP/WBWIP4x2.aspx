@@ -423,7 +423,7 @@ height:100%;
                                                    
                                                     <asp:Button class="buttonOrange" Height="25px" ID="Button4" Font-Names="Andalus" runat="server" Text="Clear" style="vertical-align:top" Width="117px" />
                                                    <br />
-                                                    <asp:Button class="buttonOrange" Height="25px" ID="CacheRemove" Font-Names="Andalus" runat="server" Text="Cache Remove" style="vertical-align:top" Width="158px" />
+                                                    <asp:Button class="buttonOrange" Height="25px" ID="CacheRemove" Font-Names="Andalus" runat="server" Text="Refresh" style="vertical-align:top" Width="158px" />
                                                   
                                                     <asp:Button ID="CacheRemove0" runat="server" class="buttonRed" Font-Names="Andalus" Height="25px" style="vertical-align:top" Text="Clear Lot" Visible="False" />
                                                    

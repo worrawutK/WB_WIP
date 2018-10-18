@@ -165,7 +165,7 @@ Public Class ControlPosition
     End Sub
 
     Public Sub SetData(LotNo As String, PKG As String, Device As String, WireType As String, FrameType As String, MCNoRequest As String, Position As String, Status As String _
-                       , Color As Drawing.Color, BackImageUrl As String, Time As TimeSpan)
+                       , Color As Drawing.Color, BackImageUrl As String, Time As TimeSpan, BeginWarningTime As Single, BeginAlarmTime As Single)
 
         If lbLotNo.Text.Length > 10 Then
             lbTime.Text = Math.Floor(Time.TotalHours).ToString("0#") & ":" & Time.Minutes.ToString("0#") & ":" & Time.Seconds.ToString("0#")  ' Time.TotalHours ' Time.Minutes & ":" & Time.Seconds 'Time.TotalHours & ":" & Time.Minutes & ":" &
@@ -186,17 +186,19 @@ Public Class ControlPosition
             'Else
             '    Panel1.BackColor = Drawing.Color.Red
             'End If
-            If Time.TotalHours > 18 AndAlso Time.TotalHours < 24 Then
+            If Time.TotalHours > BeginWarningTime AndAlso Time.TotalHours < BeginAlarmTime Then
                 If Panel1.BackColor = Color Then
                     Panel1.BackColor = Drawing.Color.White
                 Else
                     Panel1.BackColor = Color
                 End If
-            ElseIf Time.TotalHours >= 24 Then
+                lbStatus.ForeColor = Drawing.Color.Red
+            ElseIf Time.TotalHours >= BeginAlarmTime Then
                 Panel1.BackColor = Drawing.Color.Red
                 lbStatus.ForeColor = Drawing.Color.White
             Else
                 Panel1.BackColor = Color
+                lbStatus.ForeColor = Drawing.Color.Red
             End If
         End If
 

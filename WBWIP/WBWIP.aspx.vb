@@ -339,7 +339,7 @@ Public Class DBWIP
         Dim dtMessages As DataTable = DirectCast(Cache.[Get]("Messages" & Request.QueryString("RackNo")), DataTable)
             Debug.Print(Now.ToString("yyyy/MM/dd HH:mm:ss") & " LoadMessages :=" & (dtMessages Is Nothing))
         If dtMessages Is Nothing Then
-            lblDate.Text = "Version 1.03 >> " & String.Format("Last retrieved DateTime : {0}", System.DateTime.Now.ToString("HH:mm:ss"))
+            lblDate.Text = "Version 1.04 >> " & String.Format("Last retrieved DateTime : {0}", System.DateTime.Now.ToString("HH:mm:ss"))
 
 
             Try
@@ -392,7 +392,7 @@ Public Class DBWIP
                             CountTime = Date.Now - CDate(listData("InputRackTime"))
                         End If
                         '   UserControl.CountTime(CountTime)
-                        UserControl.SetData(listData("lbLotNo"), listData("lbPKG"), listData("lbDevice"), listData("lbWireType"), listData("lbFrameType"), listData("lbMCNoRequest"), listData("lbPosition"), listData("lbStatus"), Color, listData("BackImageUrl"), CountTime)
+                        UserControl.SetData(listData("lbLotNo"), listData("lbPKG"), listData("lbDevice"), listData("lbWireType"), listData("lbFrameType"), listData("lbMCNoRequest"), listData("lbPosition"), listData("lbStatus"), Color, listData("BackImageUrl"), CountTime, Single.Parse(listData("BeginWarningTime")), Single.Parse(listData("BeginAlarmTime")))
                     End If
                     ' UserControl.SetData()
                     '    Debug.Print(listData("lbPKG") & " : " & listData("lbPosition") & ":" & Now.ToString("yyyy/MM/dd HH:mm:ss"))
@@ -468,6 +468,9 @@ Public Class DBWIP
     End Function
 
     Private Sub SubRefreshDisplayCache(Messages As String)
+        If Messages Is Nothing Then
+            Exit Sub
+        End If
         Try
             ' RequestUrl()
             Debug.Print("SubRefreshDisplayCache()")
@@ -485,7 +488,8 @@ Public Class DBWIP
             _T1.Columns.Add("Color")
             _T1.Columns.Add("BackImageUrl")
             _T1.Columns.Add("InputRackTime")
-
+            _T1.Columns.Add("BeginWarningTime")
+            _T1.Columns.Add("BeginAlarmTime")
             For Each user As Control In Panel1.Controls
                 Dim _row As DataRow = _T1.NewRow
                 If TypeOf user Is UserControl = True Then
@@ -504,6 +508,16 @@ Public Class DBWIP
                     _row("Color") = Session("Color")
                     _row("BackImageUrl") = Session("BackImageUrl")
                     _row("InputRackTime") = Session("InputRackTime" & CInt(user.ID.Split("n")(2))) ' Request.Cookies("Rack")("InputRackTime" & CInt(user.ID.Split("n")(2)))
+                    Dim BeginWarningTime As Single = 0
+                    Dim BeginAlarmTime As Single = 0
+                    If Session("lbPKG") <> "" Then
+                        SqlDBx.SelectCommand = "select BeginWarningTime, BeginAlarmTime from Package where AssyName = '" & Session("lbPKG").ToString().Split("|")(0).Split(":")(1).Trim & "'"
+                        Dim dviewCheckRack As DataView = CType(SqlDBx.Select(DataSourceSelectArguments.Empty), DataView)
+                        BeginWarningTime = dviewCheckRack.Item(0).Row(0)
+                        BeginAlarmTime = dviewCheckRack.Item(0).Row(1)
+                    End If
+                    _row("BeginWarningTime") = BeginWarningTime
+                    _row("BeginAlarmTime") = BeginAlarmTime
                     'Session("lbLotNo") = lbLotNo.Text
                     'Session("lbPKG") = lbPKG.Text
                     'Session("lbDevice") = lbDevice.Text

@@ -498,6 +498,10 @@ Public Class WBWIP4x2
                     _row("Color") = Session("Color")
                     _row("BackImageUrl") = Session("BackImageUrl")
                     _row("InputRackTime") = Session("InputRackTime" & CInt(user.ID.Split("n")(2))) ' Request.Cookies("Rack")("InputRackTime" & CInt(user.ID.Split("n")(2)))
+                    SqlDBx.SelectCommand = "select BeginWarningTime, BeginAlarmTime from Package where AssyName = '" & Session("lbPKG").ToString().Split("|")(0).Split(":")(1).Trim & "'"
+                    Dim dviewCheckRack As DataView = CType(SqlDBx.Select(DataSourceSelectArguments.Empty), DataView)
+                    _row("BeginWarningTime") = dviewCheckRack.Item(0).Row(0)
+                    _row("BeginAlarmTime") = dviewCheckRack.Item(0).Row(1)
                     'Session("lbLotNo") = lbLotNo.Text
                     'Session("lbPKG") = lbPKG.Text
                     'Session("lbDevice") = lbDevice.Text
