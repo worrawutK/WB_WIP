@@ -337,7 +337,7 @@ Public Class DBWIP
 
 
         Dim dtMessages As DataTable = DirectCast(Cache.[Get]("Messages" & Request.QueryString("RackNo")), DataTable)
-            Debug.Print(Now.ToString("yyyy/MM/dd HH:mm:ss") & " LoadMessages :=" & (dtMessages Is Nothing))
+        Debug.Print(Now.ToString("yyyy/MM/dd HH:mm:ss") & " LoadMessages :=" & (dtMessages Is Nothing))
         If dtMessages Is Nothing Then
             lblDate.Text = "Version 1.04 >> " & String.Format("Last retrieved DateTime : {0}", System.DateTime.Now.ToString("HH:mm:ss"))
 
