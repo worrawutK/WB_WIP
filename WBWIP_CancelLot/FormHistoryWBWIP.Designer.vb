@@ -114,7 +114,7 @@ Partial Class FormHistoryWBWIP
         Me.LabelVersion.Name = "LabelVersion"
         Me.LabelVersion.Size = New System.Drawing.Size(66, 13)
         Me.LabelVersion.TabIndex = 9
-        Me.LabelVersion.Text = "Version 1.00"
+        Me.LabelVersion.Text = "Version 1.01"
         '
         'LabelCancelLot
         '

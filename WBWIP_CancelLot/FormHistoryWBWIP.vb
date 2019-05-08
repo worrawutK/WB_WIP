@@ -48,9 +48,7 @@
 
         Dim headerBounds As Rectangle = New Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height)
         e.Graphics.DrawString(rowIdx, rowFont, SystemBrushes.ControlText, headerBounds, centerFormat)
-    End Sub
 
-    Private Sub DataGridView1_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DataGridView1.CellFormatting
         For i As Integer = 0 To Me.DataGridView1.Rows.Count - 1
             If Me.DataGridView1.Rows(i).Cells(8).Value Is DBNull.Value Then
                 Me.DataGridView1.Rows(i).DefaultCellStyle.BackColor = Color.LawnGreen
@@ -62,6 +60,20 @@
             'Me.DataGridView1.Rows(i).Cells(8).Style.ForeColor = Color.Red
             'Me.DataGridView1.Rows(i).Cells(8).Style.BackColor = Color.Red
         Next
+    End Sub
+
+    Private Sub DataGridView1_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DataGridView1.CellFormatting
+        'For i As Integer = 0 To Me.DataGridView1.Rows.Count - 1
+        '    If Me.DataGridView1.Rows(i).Cells(8).Value Is DBNull.Value Then
+        '        Me.DataGridView1.Rows(i).DefaultCellStyle.BackColor = Color.LawnGreen
+        '    ElseIf Me.DataGridView1.Rows(i).Cells(15).Value.ToString.ToUpper = "CANCELLOT" Then
+        '        Me.DataGridView1.Rows(i).DefaultCellStyle.BackColor = Color.Silver
+        '    ElseIf Not Me.DataGridView1.Rows(i).Cells(15).Value Is DBNull.Value Then
+        '        Me.DataGridView1.Rows(i).DefaultCellStyle.BackColor = Color.DarkOrange
+        '    End If
+        '    'Me.DataGridView1.Rows(i).Cells(8).Style.ForeColor = Color.Red
+        '    'Me.DataGridView1.Rows(i).Cells(8).Style.BackColor = Color.Red
+        'Next
     End Sub
     Dim tick As Int32
     Private Sub TimerText_Tick(sender As Object, e As EventArgs) Handles TimerText.Tick
