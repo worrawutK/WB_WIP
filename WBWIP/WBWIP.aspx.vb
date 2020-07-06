@@ -371,6 +371,9 @@ Public Class DBWIP
 
         Debug.Print("GetCache()")
         Dim CacheData As DataTable = DirectCast(Cache.[Get](Request.QueryString("RackNo")), DataTable)
+        If CacheData Is Nothing Then
+            Return
+        End If
         For Each user As Control In Panel1.Controls
             If TypeOf user Is UserControl = True Then
                 Dim UserControl As ControlPosition = user
